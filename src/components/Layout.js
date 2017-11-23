@@ -1,9 +1,10 @@
 import React from 'react';
 import io from 'socket.io-client';
 import {USER_CONNECTED, LOGOUT} from '../Events.js';
-import LoginForm from './LoginForm'
+import LoginForm from './LoginForm';
+import ChatContainer from './chats/ChatContainer';
 
-const socketUrl = "http://10.19.0.245:3231"
+const socketUrl = "http://192.168.178.41:3231";
 export default class Layout extends React.Component {
 
   constructor(props) {
@@ -17,13 +18,15 @@ export default class Layout extends React.Component {
 
 
   componentWillMount() {
+
+    console.log("here")
     this.initSocket()
   }
 
-  initSocket = () => {
-    const socket = io(socketUrl)
+  initSocket(){
+    const socket = io(socketUrl);
     socket.on('connect', ()=>{
-      console.log("Connected");
+      console.log("Connected")
     })
     this.setState({socket})
   }
@@ -41,10 +44,15 @@ export default class Layout extends React.Component {
   }
 
   render () {
-      const { socket } = this.state
+      const { socket, user } = this.state
       return (
           <div className='container'>
+            {
+              !user ?
               <LoginForm socket={socket} setUser={this.setUser} />
+              :
+              <ChatContainer socket={socket} user={user} logout={this.logout} />
+            }
           </div>
       )
   }
