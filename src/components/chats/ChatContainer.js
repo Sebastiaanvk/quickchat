@@ -30,7 +30,7 @@ export default class ChatContainer extends React.Component {
     const { socket } = this.props
     const { chats } = this.state
     const newChats = reset ? [chat] : [...chats, chat]
-    this.setState({chats:newChats})
+    this.setState({chats:newChats, activeChat: reset ? chat : this.state.achitveChat})
 
     const messageEvent = `${MESSAGE_RECIEVED}-${chat.id}`
     const typingEvent = `${TYPING}-${chat.id}`
