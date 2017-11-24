@@ -13,12 +13,11 @@ export default class LoginForm extends React.Component{
     }
 
     setUser = ({user, isUser})=>{
-        console.log(user, isUser)
         if(isUser){
           this.setError("User name taken")
         } else {
-          this.props.setUser(user)
           this.setError("")
+          this.props.setUser(user)
         }
     }
 
@@ -40,9 +39,7 @@ export default class LoginForm extends React.Component{
     }
 
     setError = (error)=>{
-      this.setState({
-        error
-      })
+      this.setState({error})
     }
 
     render() {
@@ -59,7 +56,7 @@ export default class LoginForm extends React.Component{
                         id="nickname"
                         value={nickname}
                         onChange={this.handleChange}
-                        placeHolder={'MyCoolUsername'}
+                        placeholder={'MyCoolUsername'}
                         />
                         <div className="error">{error ? error:null}</div>
 

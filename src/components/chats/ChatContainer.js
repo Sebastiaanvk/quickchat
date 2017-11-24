@@ -1,6 +1,9 @@
 import React from 'react';
 import SideBar from'./SideBar';
-import { COMMUNITY_CHAT, MESSAGE_SENT, MESSAGE_RECIEVED, TYPING} from '../..Events'
+import { COMMUNITY_CHAT, MESSAGE_SENT, MESSAGE_RECIEVED, TYPING} from '../../Events'
+import ChatHeading from './ChatHeading'
+import Messages from '../messages/Messages'
+import MessageInput from '../messages/MessageInput'
 
 export default class ChatContainer extends React.Component {
   constructor(props) {
@@ -13,11 +16,13 @@ export default class ChatContainer extends React.Component {
   }
 
   componentDidMount(){
-    const{ socket } = this.props
+    const { socket } = this.props
+    console.log(socket)
     socket.emit(COMMUNITY_CHAT, this.resetChat)
   }
 
   resetChat = (chat)=>{
+    console.log("here")
     return this.addChat(chat, true)
   }
 
@@ -27,16 +32,16 @@ export default class ChatContainer extends React.Component {
     const newChats = reset ? [chat] : [...chats, chat]
     this.setState({chats:newChats})
 
-    const messageEvent = `${MESSAGE_RECIEVED}-${chat-id}`
-    const typingEvent = `${TYPING}-${chat-id}`
+    const messageEvent = `${MESSAGE_RECIEVED}-${chat.id}`
+    const typingEvent = `${TYPING}-${chat.id}`
 
     socket.on(typingEvent)
-    socket.on(messageEvent, this.addMessageToChat(chatId))
+    socket.on(messageEvent, this.addMessageToChat(chat.id))
   }
 
   addMessageToChat = (chatId)=>{
     return message =>{
-      const {chats } = this.this.setState
+      const {chats } = this.state
       let newChats = chats.map((chat)=>{
         if(chat.id === chatId)
             chat.messages.push(message)
@@ -45,6 +50,10 @@ export default class ChatContainer extends React.Component {
 
       this.setState({chats:newChats})
     }
+  }
+
+  updateTypingInChat = (chatID) => {
+
   }
 
   sendMessage = (chatId, message)=>{
@@ -63,7 +72,7 @@ export default class ChatContainer extends React.Component {
 
   render() {
     const { user, logout } = this.props
-    const {chats, activeChat} = this.state
+    const { chats, activeChat } = this.state
     return (
       <div className="container">
         <SideBar
@@ -76,6 +85,7 @@ export default class ChatContainer extends React.Component {
         <div className="chat-room-container">
           {
               activeChat !== null ? (
+
                   <div className='chat-room'>
                       <ChatHeading name={activeChat.name} />
                       <Messages
@@ -91,7 +101,7 @@ export default class ChatContainer extends React.Component {
                           }
                           sendTyping={
                             (isTyping)=>{
-                              this.sendTypiing(activeChat.id, isTyping)
+                              this.sendTyping(activeChat.id, isTyping)
                             }
                           }
                           />

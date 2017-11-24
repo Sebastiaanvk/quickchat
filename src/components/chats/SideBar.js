@@ -48,9 +48,8 @@ export default class SideBar extends React.Component {
                           </div>
 
                       </div>
-                      )
-
-                }
+                    )
+                    }
                     return null
                 })
                 }
@@ -63,6 +62,6 @@ export default class SideBar extends React.Component {
               </div>
             </div>
         </div>
-      )
+      );
   }
 }
