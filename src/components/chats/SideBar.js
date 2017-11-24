@@ -11,7 +11,7 @@ export default class SideBar extends React.Component {
     return (
         <div id='side-bar'>
             <div className='heading'>
-                <div className='app-name'>Our Dope Chat <FAChevronDown /></div>
+                <div className='app-name'>BlockChat<FAChevronDown /></div>
                 <div className='menu'>
                   <FAMenu />
                 </div>

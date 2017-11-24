@@ -4,6 +4,7 @@ const {createUser, createMessage, createChat} = require('../Factories');
 let connectedUsers = {  }
 let communityChat = createChat()
 
+
 module.exports = function(socket){
   console.log("Socket ID" + socket.id);
 

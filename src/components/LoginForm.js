@@ -48,7 +48,8 @@ export default class LoginForm extends React.Component{
           <div className='login'>
               <form onSubmit={this.handleSubmit} className="login-form" >
                   <label htmlFor="nickname">
-                      <h2>Got a nickname?</h2>
+                      <h1>Welcome to BlockChat.</h1>
+                      <h2> Got a nickname?</h2>
                   </label>
                       <input
                         ref={(input)=>{this.textInput = input}}
@@ -56,7 +57,7 @@ export default class LoginForm extends React.Component{
                         id="nickname"
                         value={nickname}
                         onChange={this.handleChange}
-                        placeholder={'MyCoolUsername'}
+                        placeholder={'No pressure.'}
                         />
                         <div className="error">{error ? error:null}</div>
 
